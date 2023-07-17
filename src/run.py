@@ -127,12 +127,19 @@ class Bot:
             """
             Echo message to other connected user
             """
-            user = self.db.user.find_one(
+            user = self.db.users.find_one(
                 {'chat.id': message.chat.id}
             )
-            if (user['state'] != states.connect) or\
+            if (not user) or (user['state'] != states.connected) or\
                 (user['connected_to'] is None):
+                print("it is return!")
+                # print(message.chat.first_name)
+                for doc in self.db.users.find():
+                    print(doc)
+                    print('-' * 50)
                 return
+
+            print(f"you are talking to {user['connected_to']}")
             
             self.send_message(user["connected_to"], message.text)
         
