@@ -6,6 +6,7 @@ from src.filters import IsAdmin
 from src.bot import bot
 import emoji
 
+# i am going to use pickle to store data
 
 class Bot:
     """
