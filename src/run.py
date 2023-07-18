@@ -1,12 +1,12 @@
-import pymongo
 from loguru import logger
-from src.utils.io import write_json
+from src.utils.io import write_json, read_json, set_json_file
 from src.constants import keyboards, keys, states
 from src.filters import IsAdmin
 from src.bot import bot
 import emoji
 
-# i am going to use pickle to store data
+DATA_DIR = "src/data/data.json"
+
 
 class Bot:
     """
@@ -15,8 +15,7 @@ class Bot:
     def __init__(self, telebot):
         # initialize bot and data base
         self.bot = telebot
-        client = pymongo.MongoClient("localhost", 27017)
-        self.db = client.Anonymous_bot
+        set_json_file(DATA_DIR)
 
         # add custom filters
         self.bot.add_custom_filter(IsAdmin())
